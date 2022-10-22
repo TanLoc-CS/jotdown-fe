@@ -1,4 +1,7 @@
-# Getting Started with Create React App
+# jotdown-fe
+This is the front-end repos of Jot Down project
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
