@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import NoteAPI from "../services/note.service.js";
 
 function NoteEditor() {
@@ -34,7 +34,7 @@ function NoteEditor() {
 					cols="36"
 					rows="2"
 					className="p-2 outline rounded-lg"
-					placeholder={"Write your note here ..."}
+					placeholder={"Write your title here ..."}
 					onChange={handleChangeTitle}
 				/>
 				<textarea
