@@ -20,7 +20,6 @@ export default async function AuthReducer(state = initialState, action) {
 		case LOGIN: {
 			const { username, password } = payload;
 			const res = await AuthAPI.login(username, password);
-			console.log(res);
 			if (res.statusText === "OK") {
 				localStorage.setItem("token", res.data.token);
 				return {
@@ -40,7 +39,11 @@ export default async function AuthReducer(state = initialState, action) {
 		case REGISTER_FAIL:
 			break;
 		case LOGOUT:
-			break;
+			localStorage.removeItem("token");
+			return {
+				...state,
+				isAuthenticated: payload.isAuthenticated,
+			};
 		default:
 			break;
 	}

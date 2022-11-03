@@ -31,12 +31,12 @@ const failLogin = () => ({
 	},
 });
 
-// const logout = () => ({
-// 	type: LOGOUT,
-// 	payload: {
-// 		isAuthenticated: false,
-// 	},
-// });
+const logout = () => ({
+	type: LOGOUT,
+	payload: {
+		isAuthenticated: false,
+	},
+});
 
 // const register = (username, password) => ({
 // 	type: REGISTER,
@@ -60,7 +60,7 @@ const ACTION = {
 	login,
 	succeedLogin,
 	failLogin,
-	// logout,
+	logout,
 	// register,
 	// succeedRegister,
 	// failRegister,
