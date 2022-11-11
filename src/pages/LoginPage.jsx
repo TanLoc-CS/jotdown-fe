@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import ACTION from "../actions/action";
@@ -9,7 +9,6 @@ import { ReactComponent as VisibilityOff } from "../assets/visibility_off.svg";
 
 function LoginPage() {
 	const navigate = useNavigate();
-	// const isAuthenticated = useSelector((state) => state.isAuthenticated);
 	const dispatch = useDispatch();
 
 	const [passwordType, setPasswordType] = useState("password");
@@ -20,8 +19,17 @@ function LoginPage() {
 		e.preventDefault();
 		const dispatchLogin = () => dispatch(ACTION.login(username, password));
 		await dispatchLogin();
+		// if (!localStorage.getItem("token")) {
+		// 	alert("Invalid username or password!");
+		// 	return;
+		// }
 		navigate("/home", { replace: true });
 	};
+	useEffect(() => {
+		if (localStorage.getItem("token")) {
+			navigate("/home", { replace: true });
+		}
+	}, []);
 
 	return (
 		<form

@@ -7,8 +7,9 @@ import {
 } from "../actions/types";
 
 const initialState = {
-	token: localStorage.getItem("token"),
-	isAuthenticated: false,
+	id: localStorage.getItem("null"),
+	username: localStorage.getItem("null"),
+	token: localStorage.getItem("null"),
 	user: {},
 	error: {},
 };
@@ -21,16 +22,16 @@ export default async function AuthReducer(state = initialState, action) {
 			const { username, password } = payload;
 			const res = await AuthAPI.login(username, password);
 			if (res.statusText === "OK") {
+				localStorage.setItem("id", res.data.data.id);
+				localStorage.setItem("username", res.data.data.username);
 				localStorage.setItem("token", res.data.token);
 				return {
 					...state,
 					token: res.data.token,
-					isAuthenticated: true,
 				};
 			}
 			return {
 				...state,
-				isAuthenticated: false,
 			};
 		}
 
@@ -40,9 +41,10 @@ export default async function AuthReducer(state = initialState, action) {
 			break;
 		case LOGOUT:
 			localStorage.removeItem("token");
+			localStorage.removeItem("username");
+			localStorage.removeItem("id");
 			return {
 				...state,
-				isAuthenticated: payload.isAuthenticated,
 			};
 		default:
 			break;

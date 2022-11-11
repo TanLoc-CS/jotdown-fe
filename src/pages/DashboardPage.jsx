@@ -9,26 +9,26 @@ import ACTION from "../actions/action";
 
 function DashboardPage() {
 	const navigate = useNavigate();
-	const isAuthenticated = useSelector((state) => state.isAuthenticated);
 	const [noteList, setNoteList] = useState([]);
 	const dispatch = useDispatch();
+
 	useEffect(() => {
+		if (!localStorage.getItem("token")) navigate("/login", { replace: true });
 		async function fetchData() {
 			// You can await here
-			const response = await NoteAPI.getNotes();
+			const userId = localStorage.getItem("id");
+			const response = await NoteAPI.getNotes(userId);
 			setNoteList(response.data);
+			console.log(response.data);
 		}
 		fetchData();
 	}, []);
 
 	const handleLogout = async () => {
-		console.log("log out");
 		const dispatchLogout = () => dispatch(ACTION.logout());
 		await dispatchLogout();
 		navigate("/login");
-		// window.location.reload();
 	};
-
 	return (
 		<div className="h-[980px] md:w-full p-6 flex flex-col justify-around items-center bg-indigo-100">
 			<div className="h-[48px] 2xl:w-[1440px] lg:w-[1088px] md:w-[740px] sm:w-[384px] flex flex-row justify-end items-center">
@@ -45,7 +45,12 @@ function DashboardPage() {
 				{noteList &&
 					noteList.map((note) => {
 						return (
-							<Note _id={note._id} title={note.title} content={note.content} />
+							<Note
+								key={note._id}
+								_id={note._id}
+								title={note.title}
+								content={note.content}
+							/>
 						);
 					})}
 			</div>

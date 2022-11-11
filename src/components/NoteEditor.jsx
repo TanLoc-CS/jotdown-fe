@@ -16,8 +16,9 @@ function NoteEditor() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		await NoteAPI.createNote(title, content);
-		// alert("Note saved!");
+		const userId = localStorage.getItem("id");
+		await NoteAPI.createNote(title, content, userId);
+		alert("Note saved!");
 		window.location.reload(true);
 	};
 

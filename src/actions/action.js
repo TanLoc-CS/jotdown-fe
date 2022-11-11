@@ -19,23 +19,18 @@ const login = (username, password) => ({
 const succeedLogin = (token) => ({
 	type: LOGIN_SUCCESS,
 	payload: {
-		isAuthenticated: true,
 		token: token,
 	},
 });
 
 const failLogin = () => ({
 	type: LOGIN_FAIL,
-	payload: {
-		isAuthenticated: false,
-	},
+	payload: {},
 });
 
 const logout = () => ({
 	type: LOGOUT,
-	payload: {
-		isAuthenticated: false,
-	},
+	payload: {},
 });
 
 // const register = (username, password) => ({
