@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import routes from "./routes/routes";
 import RequireAuth from "./authentication/RequireAuth";
+import NotAuth from "./authentication/NotAuth";
 // import DashboardPage from "./pages/DashboardPage";
 
 function App() {
@@ -24,7 +25,15 @@ function App() {
 							/>
 						);
 					return (
-						<Route path={route.path} element={<Component />} key={route.path} />
+						<Route
+							path={route.path}
+							element={
+								<NotAuth>
+									<Component />
+								</NotAuth>
+							}
+							key={route.path}
+						/>
 					);
 				})}
 			</Routes>

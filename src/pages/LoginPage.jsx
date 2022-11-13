@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import ACTION from "../actions/action";
 import { ReactComponent as Visibility } from "../assets/visibility.svg";
@@ -10,26 +10,19 @@ import { ReactComponent as VisibilityOff } from "../assets/visibility_off.svg";
 function LoginPage() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
+	const locate = useLocation();
+	const from = locate.state?.from?.pathname || "/home";
 	const [passwordType, setPasswordType] = useState("password");
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
-		const dispatchLogin = () => dispatch(ACTION.login(username, password));
-		await dispatchLogin();
-		// if (!localStorage.getItem("token")) {
-		// 	alert("Invalid username or password!");
-		// 	return;
-		// }
-		navigate("/home", { replace: true });
+		const dispatchLogin = async () =>
+			await dispatch(ACTION.login(username, password));
+		dispatchLogin();
+		navigate(from, { replace: true });
 	};
-	useEffect(() => {
-		if (localStorage.getItem("token")) {
-			navigate("/home", { replace: true });
-		}
-	}, []);
 
 	return (
 		<form
@@ -83,7 +76,7 @@ function LoginPage() {
 				<p>Forget password?</p>
 			</div>
 
-			<button className="w-[424px] h-[56px] mb-[36px] bg-black text-white rounded-lg">
+			<button className="w-[424px] h-[56px] mb-[36px] bg-zinc-700 text-white rounded-lg hover:bg-zinc-800 active:bg-zinc-900">
 				Login
 			</button>
 			<div className="w-[424px] h-auto flex flex-row justify-center items-center">

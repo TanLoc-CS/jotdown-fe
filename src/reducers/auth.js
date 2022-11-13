@@ -25,6 +25,7 @@ export default async function AuthReducer(state = initialState, action) {
 				localStorage.setItem("id", res.data.data.id);
 				localStorage.setItem("username", res.data.data.username);
 				localStorage.setItem("token", res.data.token);
+				localStorage.setItem("isAuthenticated", true);
 				return {
 					...state,
 					token: res.data.token,
@@ -43,6 +44,7 @@ export default async function AuthReducer(state = initialState, action) {
 			localStorage.removeItem("token");
 			localStorage.removeItem("username");
 			localStorage.removeItem("id");
+			localStorage.removeItem("isAuthenticated");
 			return {
 				...state,
 			};

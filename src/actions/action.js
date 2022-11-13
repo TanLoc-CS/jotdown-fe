@@ -1,12 +1,4 @@
-import {
-	LOGIN,
-	LOGIN_SUCCESS,
-	LOGIN_FAIL,
-	LOGOUT,
-	REGISTER,
-	REGISTER_SUCCESS,
-	REGISTER_FAIL,
-} from "./types";
+import { LOGIN, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, REGISTER } from "./types";
 
 const login = (username, password) => ({
 	type: LOGIN,
@@ -33,13 +25,13 @@ const logout = () => ({
 	payload: {},
 });
 
-// const register = (username, password) => ({
-// 	type: REGISTER,
-// 	payload: {
-// 		username: username,
-// 		password: password,
-// 	},
-// });
+const register = (username, password) => ({
+	type: REGISTER,
+	payload: {
+		username: username,
+		password: password,
+	},
+});
 
 // const succeedRegister = () => ({
 // 	type: REGISTER_SUCCESS,
@@ -56,7 +48,7 @@ const ACTION = {
 	succeedLogin,
 	failLogin,
 	logout,
-	// register,
+	register,
 	// succeedRegister,
 	// failRegister,
 };

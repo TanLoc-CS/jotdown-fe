@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Note from "../components/Note";
@@ -12,14 +12,11 @@ function DashboardPage() {
 	const [noteList, setNoteList] = useState([]);
 	const dispatch = useDispatch();
 
+	const userId = localStorage.getItem("id");
 	useEffect(() => {
-		if (!localStorage.getItem("token")) navigate("/login", { replace: true });
 		async function fetchData() {
 			// You can await here
-			const userId = localStorage.getItem("id");
-			const response = await NoteAPI.getNotes(userId);
-			setNoteList(response.data);
-			console.log(response.data);
+			await NoteAPI.getNotes(userId).then((res) => setNoteList(res.data));
 		}
 		fetchData();
 	}, []);
@@ -27,7 +24,7 @@ function DashboardPage() {
 	const handleLogout = async () => {
 		const dispatchLogout = () => dispatch(ACTION.logout());
 		await dispatchLogout();
-		navigate("/login");
+		navigate("/login", { replace: true });
 	};
 	return (
 		<div className="h-[980px] md:w-full p-6 flex flex-col justify-around items-center bg-indigo-100">
